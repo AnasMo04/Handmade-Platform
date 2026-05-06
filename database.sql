@@ -41,21 +41,21 @@ CREATE TABLE IF NOT EXISTS ratings (
 
 -- 1. Admin User (Password: Admin123!)
 INSERT INTO users (username, email, password, role) VALUES
-('admin', 'admin@craft.com', '$2y$10$jEzLqGNjeFbo0tHnyndLwOK/vUZrTlHoBfTC74Z5H.XFMwijqqcu.', 'admin');
+('admin', 'admin@craft.com', 'Admin123!', 'admin');
 
 -- 2. Craftsmen Profiles (Password: craft123)
 INSERT INTO users (username, email, password, role) VALUES
-('artisan_jane', 'jane@example.com', '$2y$10$kOKkrg7ENDzgIdPpoBWxQ.TVjqOMA3dzg81SkYGe69zG3p3ng4bs2', 'craftsman'),
-('wood_works', 'wood@example.com', '$2y$10$kOKkrg7ENDzgIdPpoBWxQ.TVjqOMA3dzg81SkYGe69zG3p3ng4bs2', 'craftsman'),
-('pottery_pro', 'pottery@example.com', '$2y$10$kOKkrg7ENDzgIdPpoBWxQ.TVjqOMA3dzg81SkYGe69zG3p3ng4bs2', 'craftsman'),
-('weaver_will', 'weaver@example.com', '$2y$10$kOKkrg7ENDzgIdPpoBWxQ.TVjqOMA3dzg81SkYGe69zG3p3ng4bs2', 'craftsman'),
-('glass_gal', 'glass@example.com', '$2y$10$kOKkrg7ENDzgIdPpoBWxQ.TVjqOMA3dzg81SkYGe69zG3p3ng4bs2', 'craftsman');
+('artisan_jane', 'jane@example.com', 'craft123', 'craftsman'),
+('wood_works', 'wood@example.com', 'craft123', 'craftsman'),
+('pottery_pro', 'pottery@example.com', 'craft123', 'craftsman'),
+('weaver_will', 'weaver@example.com', 'craft123', 'craftsman'),
+('glass_gal', 'glass@example.com', 'craft123', 'craftsman');
 
 -- 3. Regular Users (Password: user123)
 INSERT INTO users (username, email, password, role) VALUES
-('buyer_mark', 'mark@example.com', '$2y$10$UAwmiFxoSMkms5Ov7YKT3OgDsML6I6dOXB3HBjOrvCpHCnM31Z2sC', 'user'),
-('collector_lily', 'lily@example.com', '$2y$10$UAwmiFxoSMkms5Ov7YKT3OgDsML6I6dOXB3HBjOrvCpHCnM31Z2sC', 'user'),
-('gift_hunter', 'gift@example.com', '$2y$10$UAwmiFxoSMkms5Ov7YKT3OgDsML6I6dOXB3HBjOrvCpHCnM31Z2sC', 'user');
+('buyer_mark', 'mark@example.com', 'user123', 'user'),
+('collector_lily', 'lily@example.com', 'user123', 'user'),
+('gift_hunter', 'gift@example.com', 'user123', 'user');
 
 -- 4. Craft Items
 INSERT INTO crafts (user_id, title, description, price, image_url) VALUES

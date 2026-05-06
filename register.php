@@ -23,9 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($stmt->fetch()) {
             $error = 'Username or email already exists.';
         } else {
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            // Simplified for testing: Using plain-text passwords
             $stmt = $pdo->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
-            if ($stmt->execute([$username, $email, $hashed_password, $role])) {
+            if ($stmt->execute([$username, $email, $password, $role])) {
                 $success = 'Registration successful! You can now <a href="login.php">login</a>.';
             } else {
                 $error = 'Something went wrong. Please try again.';
@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <select name="role" id="role" required>
                     <option value="user">Regular User</option>
                     <option value="craftsman">Craftsman</option>
+                    <option value="admin">System Administrator</option>
                 </select>
             </div>
             <button type="submit" class="btn">Register</button>
