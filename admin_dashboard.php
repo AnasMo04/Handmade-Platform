@@ -26,19 +26,24 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">Crafts Platform (Admin)</div>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="admin_dashboard.php">Dashboard</a></li>
-                <li><a href="logout.php" class="btn btn-outline" style="margin-left: 1rem;">Logout (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
+<body style="background: var(--bg-color);">
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <a href="index.php" class="logo">
+                <span>CraftsPlatform</span>
+            </a>
+            <ul class="sidebar-nav">
+                <li><a href="index.php"><span>Home</span></a></li>
+                <li><a href="admin_dashboard.php" class="active"><span>System Overview</span></a></li>
+                <!-- Future links could go here -->
             </ul>
-        </nav>
-    </header>
+            <div class="sidebar-footer">
+                <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
+            </div>
+        </aside>
 
-    <main class="container">
+        <main class="content-area">
+            <div class="container">
         <h2 class="section-title">System Management</h2>
 
         <?php if ($success == 'deleted'): ?>
@@ -106,7 +111,9 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                 </table>
             </div>
         </section>
-    </main>
+            </div>
+        </main>
+    </div>
 
     <script src="js/validation.js"></script>
 </body>

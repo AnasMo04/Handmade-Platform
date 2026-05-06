@@ -23,19 +23,24 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
     <title>Craftsman Dashboard</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">Crafts Platform</div>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="craftsman_dashboard.php">Dashboard</a></li>
-                <li><a href="logout.php" class="btn btn-outline" style="margin-left: 1rem;">Logout (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
+<body style="background: var(--bg-color);">
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <a href="index.php" class="logo">
+                <span>CraftsPlatform</span>
+            </a>
+            <ul class="sidebar-nav">
+                <li><a href="index.php"><span>Browse Crafts</span></a></li>
+                <li><a href="craftsman_dashboard.php" class="active"><span>My Inventory</span></a></li>
+                <li><a href="add_craft.php"><span>Add New Craft</span></a></li>
             </ul>
-        </nav>
-    </header>
+            <div class="sidebar-footer">
+                <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
+            </div>
+        </aside>
 
-    <main class="container">
+        <main class="content-area">
+            <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
             <h2 class="section-title" style="margin-bottom: 0;">My Crafts Inventory</h2>
             <a href="add_craft.php" class="btn">Add New Craft</a>
@@ -82,7 +87,9 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                 </tbody>
             </table>
         </div>
-    </main>
+            </div>
+        </main>
+    </div>
 
     <script src="js/validation.js"></script>
 </body>

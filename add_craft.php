@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!is_numeric($price)) {
         $error = 'Price must be a number.';
     } else {
-        // Handle optional image upload with basic security checks
+    // Handle optional image upload with improved checks
         $image_url = '';
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
             $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
@@ -60,32 +60,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Add Craft</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <div class="auth-container" style="max-width: 600px;">
-        <h2>Add New Craft</h2>
-        <?php if ($error): ?>
-            <div class="alert error-msg"><?php echo $error; ?></div>
-        <?php endif; ?>
-        <form action="add_craft.php" method="POST" enctype="multipart/form-data" id="craftForm">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title" required>
+<body style="background: var(--bg-color);">
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <a href="index.php" class="logo">
+                <span>CraftsPlatform</span>
+            </a>
+            <ul class="sidebar-nav">
+                <li><a href="index.php"><span>Browse Crafts</span></a></li>
+                <li><a href="craftsman_dashboard.php"><span>My Inventory</span></a></li>
+                <li><a href="add_craft.php" class="active"><span>Add New Craft</span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
             </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea name="description" id="description" rows="5" required></textarea>
+        </aside>
+
+        <main class="content-area">
+            <div class="container" style="max-width: 800px;">
+                <h2 class="section-title">List a New Creation</h2>
+
+                <?php if ($error): ?>
+                    <div class="alert alert-danger"><?php echo $error; ?></div>
+                <?php endif; ?>
+
+                <div class="table-container" style="padding: 2.5rem;">
+                    <form action="add_craft.php" method="POST" enctype="multipart/form-data" id="craftForm">
+                        <div class="form-group">
+                            <label for="title">Craft Title</label>
+                            <input type="text" name="title" id="title" placeholder="e.g. Hand-Woven Silk Scarf" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Detailed Description</label>
+                            <textarea name="description" id="description" rows="6" placeholder="Describe the materials, process, and uniqueness..." required></textarea>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div class="form-group">
+                                <label for="price">Price (USD)</label>
+                                <input type="number" step="0.01" name="price" id="price" placeholder="0.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Product Image</label>
+                                <input type="file" name="image" id="image">
+                            </div>
+                        </div>
+                        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                            <button type="submit" class="btn" style="flex: 2;">Publish Craft</button>
+                            <a href="craftsman_dashboard.php" class="btn btn-outline" style="flex: 1;">Cancel</a>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="price">Price ($)</label>
-                <input type="number" step="0.01" name="price" id="price" required>
-            </div>
-            <div class="form-group">
-                <label for="image">Image (Optional)</label>
-                <input type="file" name="image" id="image">
-            </div>
-            <button type="submit" class="btn" style="width: 100%;">Add Craft</button>
-            <a href="craftsman_dashboard.php" style="display:block; text-align:center; margin-top:1.5rem; color: var(--text-muted); text-decoration: none; font-weight: 500;">Cancel</a>
-        </form>
+        </main>
     </div>
     <script src="js/validation.js"></script>
 </body>

@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login - Crafts Platform</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="auth-page">
     <div class="auth-container">
         <h2>Login</h2>
         <?php if ($error): ?>

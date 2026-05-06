@@ -83,7 +83,7 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                             <?php if ($craft['image_url']): ?>
                                 <img src="<?php echo htmlspecialchars($craft['image_url']); ?>" alt="<?php echo htmlspecialchars($craft['title']); ?>" class="craft-image">
                             <?php else: ?>
-                                <img src="https://via.placeholder.com/600x400?text=No+Image" alt="No Image" class="craft-image">
+                                <img src="https://images.unsplash.com/photo-1459749411177-042180ce673b?auto=format&fit=crop&q=80&w=600" alt="Handmade Craft" class="craft-image">
                             <?php endif; ?>
                         </div>
                         <div class="craft-info">
@@ -95,12 +95,12 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                             <div class="craft-meta">
                                 <div class="rating-display">
                                     <?php if ($craft['avg_rating']): ?>
-                                        <span>★</span> <?php echo number_format($craft['avg_rating'], 1); ?> <span style="color: var(--text-muted); font-weight: normal;">(<?php echo $craft['rating_count']; ?>)</span>
+                                        <span style="color: var(--accent-color);">★</span> <?php echo number_format($craft['avg_rating'], 1); ?> <span style="color: var(--text-muted); font-weight: 500; font-size: 0.8rem;">(<?php echo $craft['rating_count']; ?>)</span>
                                     <?php else: ?>
-                                        <span style="color: #ccc;">★</span> <span style="color: var(--text-muted); font-weight: normal;">No ratings</span>
+                                        <span style="color: #ccc;">★</span> <span style="color: var(--text-muted); font-weight: 500; font-size: 0.8rem;">New</span>
                                     <?php endif; ?>
                                 </div>
-                                <span>By <?php echo htmlspecialchars($craft['username']); ?></span>
+                                <span style="color: var(--text-muted); font-weight: 600;">@<?php echo htmlspecialchars($craft['username']); ?></span>
                             </div>
                             
                             <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user'): ?>
@@ -126,7 +126,10 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
     </main>
 
     <footer>
-        <p>&copy; <?php echo date("Y"); ?> Productive Families & Handmade Crafts Platform</p>
+        <div class="container">
+            <p style="font-weight: 700; color: var(--primary-color); margin-bottom: 1rem;">CraftsPlatform</p>
+            <p>&copy; <?php echo date("Y"); ?> Productive Families & Handmade Crafts Platform. All rights reserved.</p>
+        </div>
     </footer>
 </body>
 </html>
