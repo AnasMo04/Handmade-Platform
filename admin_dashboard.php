@@ -23,19 +23,22 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Panel - CraftsPlatform</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body style="background: var(--bg-color);">
     <div class="main-wrapper">
         <aside class="sidebar">
             <a href="index.php" class="logo">
+                <i class="fas fa-hammer"></i>
                 <span>CraftsPlatform</span>
             </a>
             <ul class="sidebar-nav">
-                <li><a href="index.php"><span>Home</span></a></li>
-                <li><a href="admin_dashboard.php" class="active"><span>System Overview</span></a></li>
-                <!-- Future links could go here -->
+                <li><a href="index.php"><i class="fas fa-th-large"></i> <span>Browse Crafts</span></a></li>
+                <li><a href="admin_dashboard.php" class="active"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
+                <li><a href="admin_dashboard.php"><i class="fas fa-boxes"></i> <span>All Crafts</span></a></li>
+                <li><a href="#"><i class="fas fa-cogs"></i> <span>Site Settings</span></a></li>
             </ul>
             <div class="sidebar-footer">
                 <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
@@ -114,6 +117,13 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             </div>
         </main>
     </div>
+
+    <footer style="margin-left: var(--sidebar-width);">
+        <div class="container">
+            <p style="font-weight: 700; color: var(--primary-color); margin-bottom: 1rem;">CraftsPlatform</p>
+            <p>&copy; <?php echo date("Y"); ?> Admin Control Panel. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script src="js/validation.js"></script>
 </body>

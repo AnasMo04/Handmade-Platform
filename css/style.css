@@ -102,6 +102,12 @@ body {
     color: #ffffff;
 }
 
+.sidebar-nav a i {
+    width: 24px;
+    margin-right: 10px;
+    text-align: center;
+}
+
 .sidebar-footer {
     padding-top: 2rem;
     border-top: 1px solid rgba(255,255,255,0.1);

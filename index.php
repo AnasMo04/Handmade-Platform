@@ -36,31 +36,48 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Crafts Platform</title>
+    <title>Browse Crafts - Crafts Platform</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">Crafts Platform</div>
-            <ul>
-                <li><a href="index.php">Home</a></li>
+<body style="background: var(--bg-color);">
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <a href="index.php" class="logo">
+                <i class="fas fa-hammer"></i>
+                <span>CraftsPlatform</span>
+            </a>
+            <ul class="sidebar-nav">
+                <li><a href="index.php" class="active"><i class="fas fa-th-large"></i> <span>Browse Crafts</span></a></li>
+
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <?php if ($_SESSION['role'] == 'craftsman'): ?>
-                        <li><a href="craftsman_dashboard.php">My Dashboard</a></li>
-                    <?php elseif ($_SESSION['role'] == 'admin'): ?>
-                        <li><a href="admin_dashboard.php">Admin Panel</a></li>
+                    <?php if ($_SESSION['role'] == 'admin'): ?>
+                        <li><a href="admin_dashboard.php"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
+                        <li><a href="admin_dashboard.php"><i class="fas fa-boxes"></i> <span>All Crafts</span></a></li>
+                    <?php elseif ($_SESSION['role'] == 'craftsman'): ?>
+                        <li><a href="craftsman_dashboard.php"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
+                        <li><a href="craftsman_dashboard.php"><i class="fas fa-box-open"></i> <span>My Inventory</span></a></li>
+                        <li><a href="add_craft.php"><i class="fas fa-plus-circle"></i> <span>Add Craft</span></a></li>
+                    <?php elseif ($_SESSION['role'] == 'user'): ?>
+                        <li><a href="#"><i class="fas fa-heart"></i> <span>My Favorites</span></a></li>
                     <?php endif; ?>
-                    <li><a href="logout.php" class="btn btn-outline" style="margin-left: 1rem;">Logout (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
+                    <li><a href="#"><i class="fas fa-user-circle"></i> <span>My Profile</span></a></li>
                 <?php else: ?>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="register.php" class="btn">Get Started</a></li>
+                    <li><a href="login.php"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
+                    <li><a href="register.php"><i class="fas fa-user-plus"></i> <span>Register</span></a></li>
                 <?php endif; ?>
             </ul>
-        </nav>
-    </header>
+            <div class="sidebar-footer">
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
+                <?php else: ?>
+                    <a href="register.php" class="btn" style="width: 100%;">Get Started</a>
+                <?php endif; ?>
+            </div>
+        </aside>
 
-    <main class="container">
+        <main class="content-area">
+            <div class="container">
         <section class="search-section">
             <form action="index.php" method="GET" class="search-bar">
                 <input type="text" name="search" placeholder="Search crafts by name or description..." value="<?php echo htmlspecialchars($search); ?>">
@@ -103,7 +120,8 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                                 <span style="color: var(--text-muted); font-weight: 600;">@<?php echo htmlspecialchars($craft['username']); ?></span>
                             </div>
                             
-                            <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user'): ?>
+                            <?php if (isset($_SESSION['user_id']) && ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'craftsman')): ?>
+                                <?php if ($_SESSION['user_id'] != $craft['user_id']): ?>
                                 <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed var(--border-color);">
                                     <form action="rate_craft.php" method="POST" style="display: flex; gap: 0.5rem; align-items: center;">
                                         <input type="hidden" name="craft_id" value="<?php echo $craft['id']; ?>">
@@ -117,15 +135,18 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                                         <button type="submit" class="btn btn-outline" style="padding: 0.4rem 0.8rem;">Rate</button>
                                     </form>
                                 </div>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-    </main>
+            </div>
+        </main>
+    </div>
 
-    <footer>
+    <footer style="margin-left: var(--sidebar-width);">
         <div class="container">
             <p style="font-weight: 700; color: var(--primary-color); margin-bottom: 1rem;">CraftsPlatform</p>
             <p>&copy; <?php echo date("Y"); ?> Productive Families & Handmade Crafts Platform. All rights reserved.</p>

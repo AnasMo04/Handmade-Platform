@@ -73,19 +73,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Craft</title>
+    <title>Edit Craft - CraftsPlatform</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body style="background: var(--bg-color);">
     <div class="main-wrapper">
         <aside class="sidebar">
             <a href="index.php" class="logo">
+                <i class="fas fa-hammer"></i>
                 <span>CraftsPlatform</span>
             </a>
             <ul class="sidebar-nav">
-                <li><a href="index.php"><span>Browse Crafts</span></a></li>
-                <li><a href="craftsman_dashboard.php"><span>My Inventory</span></a></li>
-                <li><a href="add_craft.php"><span>Add New Craft</span></a></li>
+                <li><a href="craftsman_dashboard.php"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
+                <li><a href="index.php"><i class="fas fa-search"></i> <span>Browse Others</span></a></li>
+                <li><a href="craftsman_dashboard.php" class="active"><i class="fas fa-box-open"></i> <span>My Inventory</span></a></li>
+                <li><a href="add_craft.php"><i class="fas fa-plus-circle"></i> <span>Add New Craft</span></a></li>
+                <li><a href="#"><i class="fas fa-user-circle"></i> <span>Profile</span></a></li>
             </ul>
             <div class="sidebar-footer">
                 <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
@@ -132,6 +136,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </main>
     </div>
+
+    <footer style="margin-left: var(--sidebar-width);">
+        <div class="container">
+            <p style="font-weight: 700; color: var(--primary-color); margin-bottom: 1rem;">CraftsPlatform</p>
+            <p>&copy; <?php echo date("Y"); ?> Craftsman Management Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script src="js/validation.js"></script>
 </body>
 </html>
