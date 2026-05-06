@@ -1,6 +1,6 @@
 <?php
 // Database configuration
-$host = 'localhost';
+$host = '127.0.0.1';
 $db   = 'craft_platform';
 $user = 'root';
 $pass = ''; // Default password is often empty in local environments

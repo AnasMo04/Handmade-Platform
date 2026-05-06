@@ -33,75 +33,78 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="admin_dashboard.php">Dashboard</a></li>
-                <li><a href="logout.php">Logout</a></li>
+                <li><a href="logout.php" class="btn btn-outline" style="margin-left: 1rem;">Logout (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="container">
-        <h2>System Management</h2>
+        <h2 class="section-title">System Management</h2>
 
         <?php if ($success == 'deleted'): ?>
-            <p class="success-msg">Craft removed successfully!</p>
+            <div class="alert success-msg">Craft removed successfully!</div>
         <?php elseif ($success == 'user_deleted'): ?>
-            <p class="success-msg">User deleted successfully!</p>
+            <div class="alert success-msg">User deleted successfully!</div>
         <?php endif; ?>
 
-        <section style="margin-top: 40px;">
-            <h3>Users</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Registered</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($users as $user): ?>
+        <section style="margin-top: 2rem;">
+            <h3 style="margin-bottom: 1rem; color: var(--secondary-color);">User Accounts</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
                         <tr>
-                            <td><?php echo htmlspecialchars($user['username']); ?></td>
-                            <td><?php echo htmlspecialchars($user['email']); ?></td>
-                            <td><?php echo htmlspecialchars($user['role']); ?></td>
-                            <td><?php echo $user['created_at']; ?></td>
-                            <td>
-                                <?php if ($user['id'] != $_SESSION['user_id']): ?>
-                                    <a href="delete_user.php?id=<?php echo $user['id']; ?>" class="btn btn-danger delete-btn" style="width: auto; padding: 5px 10px;">Delete</a>
-                                <?php endif; ?>
-                            </td>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Registered</th>
+                            <th>Actions</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td style="font-weight: 600;"><?php echo htmlspecialchars($user['username']); ?></td>
+                                <td><?php echo htmlspecialchars($user['email']); ?></td>
+                                <td><span style="background: #e1f5fe; color: #01579b; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 600;"><?php echo htmlspecialchars($user['role']); ?></span></td>
+                                <td style="color: var(--text-muted);"><?php echo date('M d, Y', strtotime($user['created_at'])); ?></td>
+                                <td>
+                                    <?php if ($user['id'] != $_SESSION['user_id']): ?>
+                                        <a href="delete_user.php?id=<?php echo $user['id']; ?>" class="btn btn-danger delete-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Delete</a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
-        <section style="margin-top: 40px;">
-            <h3>All Crafts</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Craftsman</th>
-                        <th>Price</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($crafts as $craft): ?>
+        <section style="margin-top: 3rem;">
+            <h3 style="margin-bottom: 1rem; color: var(--secondary-color);">All Crafts</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
                         <tr>
-                            <td><?php echo htmlspecialchars($craft['title']); ?></td>
-                            <td><?php echo htmlspecialchars($craft['username']); ?></td>
-                            <td>$<?php echo htmlspecialchars($craft['price']); ?></td>
-                            <td>
-                                <!-- Admin could potentially delete inappropriate content -->
-                                <a href="delete_craft_admin.php?id=<?php echo $craft['id']; ?>" class="btn btn-danger delete-btn" style="width: auto; padding: 5px 10px;">Remove</a>
-                            </td>
+                            <th>Title</th>
+                            <th>Craftsman</th>
+                            <th>Price</th>
+                            <th>Actions</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($crafts as $craft): ?>
+                            <tr>
+                                <td style="font-weight: 600;"><?php echo htmlspecialchars($craft['title']); ?></td>
+                                <td><?php echo htmlspecialchars($craft['username']); ?></td>
+                                <td style="color: var(--primary-color); font-weight: 700;">$<?php echo htmlspecialchars($craft['price']); ?></td>
+                                <td>
+                                    <a href="delete_craft_admin.php?id=<?php echo $craft['id']; ?>" class="btn btn-danger delete-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Remove</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
 

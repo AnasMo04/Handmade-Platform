@@ -46,10 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="auth-container">
         <h2>Register</h2>
         <?php if ($error): ?>
-            <p class="error-msg"><?php echo $error; ?></p>
+            <div class="alert error-msg"><?php echo $error; ?></div>
         <?php endif; ?>
         <?php if ($success): ?>
-            <p class="success-msg"><?php echo $success; ?></p>
+            <div class="alert success-msg"><?php echo $success; ?></div>
         <?php endif; ?>
         <form action="register.php" method="POST" id="registerForm">
             <div class="form-group">

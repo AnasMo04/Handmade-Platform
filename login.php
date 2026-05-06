@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="auth-container">
         <h2>Login</h2>
         <?php if ($error): ?>
-            <p class="error-msg"><?php echo $error; ?></p>
+            <div class="alert error-msg"><?php echo $error; ?></div>
         <?php endif; ?>
         <form action="login.php" method="POST" id="loginForm">
             <div class="form-group">
