@@ -61,10 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="auth-container">
+    <div class="auth-container" style="max-width: 600px;">
         <h2>Add New Craft</h2>
         <?php if ($error): ?>
-            <p class="error-msg"><?php echo $error; ?></p>
+            <div class="alert error-msg"><?php echo $error; ?></div>
         <?php endif; ?>
         <form action="add_craft.php" method="POST" enctype="multipart/form-data" id="craftForm">
             <div class="form-group">
@@ -83,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="image">Image (Optional)</label>
                 <input type="file" name="image" id="image">
             </div>
-            <button type="submit" class="btn">Add Craft</button>
-            <a href="craftsman_dashboard.php" style="display:block; text-align:center; margin-top:10px;">Cancel</a>
+            <button type="submit" class="btn" style="width: 100%;">Add Craft</button>
+            <a href="craftsman_dashboard.php" style="display:block; text-align:center; margin-top:1.5rem; color: var(--text-muted); text-decoration: none; font-weight: 500;">Cancel</a>
         </form>
     </div>
     <script src="js/validation.js"></script>

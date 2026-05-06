@@ -51,10 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="auth-container">
+    <div class="auth-container" style="max-width: 600px;">
         <h2>Edit Craft</h2>
         <?php if ($error): ?>
-            <p class="error-msg"><?php echo $error; ?></p>
+            <div class="alert error-msg"><?php echo $error; ?></div>
         <?php endif; ?>
         <form action="edit_craft.php?id=<?php echo $id; ?>" method="POST" id="craftForm">
             <div class="form-group">
@@ -69,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="price">Price ($)</label>
                 <input type="number" step="0.01" name="price" id="price" value="<?php echo htmlspecialchars($craft['price']); ?>" required>
             </div>
-            <button type="submit" class="btn">Update Craft</button>
-            <a href="craftsman_dashboard.php" style="display:block; text-align:center; margin-top:10px;">Cancel</a>
+            <button type="submit" class="btn" style="width: 100%;">Update Craft</button>
+            <a href="craftsman_dashboard.php" style="display:block; text-align:center; margin-top:1.5rem; color: var(--text-muted); text-decoration: none; font-weight: 500;">Cancel</a>
         </form>
     </div>
     <script src="js/validation.js"></script>
