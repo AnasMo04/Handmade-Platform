@@ -35,7 +35,9 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                 <span>CraftsPlatform</span>
             </a>
             <ul class="sidebar-nav">
+                <li><a href="index.php"><i class="fas fa-th-large"></i> <span>Browse Crafts</span></a></li>
                 <li><a href="admin_dashboard.php" class="active"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
+                <li><a href="#all-crafts"><i class="fas fa-boxes"></i> <span>Manage All Crafts</span></a></li>
             </ul>
             <div class="sidebar-footer">
                 <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
@@ -50,6 +52,8 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             <div class="alert success-msg">Craft removed successfully!</div>
         <?php elseif ($success == 'user_deleted'): ?>
             <div class="alert success-msg">User deleted successfully!</div>
+        <?php elseif ($success == 'updated'): ?>
+            <div class="alert success-msg">Craft updated successfully!</div>
         <?php endif; ?>
 
         <section style="margin-top: 2rem;">
@@ -84,7 +88,7 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             </div>
         </section>
 
-        <section style="margin-top: 3rem;">
+        <section style="margin-top: 3rem;" id="all-crafts">
             <h3 style="margin-bottom: 1rem; color: var(--secondary-color);">All Crafts</h3>
             <div class="table-container">
                 <table>
@@ -103,7 +107,10 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                                 <td><?php echo htmlspecialchars($craft['username']); ?></td>
                                 <td style="color: var(--primary-color); font-weight: 700;">$<?php echo htmlspecialchars($craft['price']); ?></td>
                                 <td>
-                                    <a href="delete_craft_admin.php?id=<?php echo $craft['id']; ?>" class="btn btn-danger delete-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Remove</a>
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <a href="edit_craft.php?id=<?php echo $craft['id']; ?>" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Edit</a>
+                                        <a href="delete_craft_admin.php?id=<?php echo $craft['id']; ?>" class="btn btn-danger delete-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Remove</a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -69,9 +69,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <span>CraftsPlatform</span>
             </a>
             <ul class="sidebar-nav">
-                <li><a href="craftsman_dashboard.php"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
-                <li><a href="index.php"><i class="fas fa-search"></i> <span>Browse Others</span></a></li>
-                <li><a href="craftsman_dashboard.php"><i class="fas fa-box-open"></i> <span>My Inventory</span></a></li>
+                <?php if ($_SESSION['role'] == 'admin'): ?>
+                    <li><a href="admin_dashboard.php"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
+                    <li><a href="admin_dashboard.php#all-crafts"><i class="fas fa-boxes"></i> <span>Manage All Crafts</span></a></li>
+                <?php else: ?>
+                    <li><a href="craftsman_dashboard.php"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
+                    <li><a href="index.php"><i class="fas fa-search"></i> <span>Browse Others</span></a></li>
+                    <li><a href="craftsman_dashboard.php"><i class="fas fa-box-open"></i> <span>My Inventory</span></a></li>
+                <?php endif; ?>
             </ul>
             <div class="sidebar-footer">
                 <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>

@@ -2,7 +2,7 @@
 session_start();
 require_once 'includes/db.php';
 
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'craftsman') {
+if (!isset($_SESSION['user_id']) || ($_SESSION['role'] !== 'craftsman' && $_SESSION['role'] !== 'admin')) {
     header("Location: login.php");
     exit;
 }
@@ -14,8 +14,13 @@ if (!$id) {
 }
 
 // Fetch existing craft data
-$stmt = $pdo->prepare("SELECT * FROM crafts WHERE id = ? AND user_id = ?");
-$stmt->execute([$id, $_SESSION['user_id']]);
+if ($_SESSION['role'] === 'admin') {
+    $stmt = $pdo->prepare("SELECT * FROM crafts WHERE id = ?");
+    $stmt->execute([$id]);
+} else {
+    $stmt = $pdo->prepare("SELECT * FROM crafts WHERE id = ? AND user_id = ?");
+    $stmt->execute([$id, $_SESSION['user_id']]);
+}
 $craft = $stmt->fetch();
 
 if (!$craft) {
@@ -57,9 +62,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if (empty($error)) {
-            $stmt = $pdo->prepare("UPDATE crafts SET title = ?, description = ?, price = ?, image_url = ? WHERE id = ? AND user_id = ?");
-            if ($stmt->execute([$title, $description, $price, $image_url, $id, $_SESSION['user_id']])) {
-                header("Location: craftsman_dashboard.php?success=updated");
+            if ($_SESSION['role'] === 'admin') {
+                $stmt = $pdo->prepare("UPDATE crafts SET title = ?, description = ?, price = ?, image_url = ? WHERE id = ?");
+                $success = $stmt->execute([$title, $description, $price, $image_url, $id]);
+                $redirect = "admin_dashboard.php?success=updated";
+            } else {
+                $stmt = $pdo->prepare("UPDATE crafts SET title = ?, description = ?, price = ?, image_url = ? WHERE id = ? AND user_id = ?");
+                $success = $stmt->execute([$title, $description, $price, $image_url, $id, $_SESSION['user_id']]);
+                $redirect = "craftsman_dashboard.php?success=updated";
+            }
+
+            if ($success) {
+                header("Location: $redirect");
                 exit;
             } else {
                 $error = 'Database error. Failed to update craft.';
@@ -85,9 +99,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <span>CraftsPlatform</span>
             </a>
             <ul class="sidebar-nav">
-                <li><a href="craftsman_dashboard.php"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
-                <li><a href="index.php"><i class="fas fa-search"></i> <span>Browse Others</span></a></li>
-                <li><a href="craftsman_dashboard.php" class="active"><i class="fas fa-box-open"></i> <span>My Inventory</span></a></li>
+                <?php if ($_SESSION['role'] == 'admin'): ?>
+                    <li><a href="index.php"><i class="fas fa-th-large"></i> <span>Browse Crafts</span></a></li>
+                    <li><a href="admin_dashboard.php"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
+                    <li><a href="admin_dashboard.php#all-crafts" class="active"><i class="fas fa-boxes"></i> <span>Manage All Crafts</span></a></li>
+                <?php else: ?>
+                    <li><a href="craftsman_dashboard.php"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
+                    <li><a href="index.php"><i class="fas fa-search"></i> <span>Browse Others</span></a></li>
+                    <li><a href="craftsman_dashboard.php" class="active"><i class="fas fa-box-open"></i> <span>My Inventory</span></a></li>
+                <?php endif; ?>
             </ul>
             <div class="sidebar-footer">
                 <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
