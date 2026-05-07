@@ -48,21 +48,18 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                 <span>CraftsPlatform</span>
             </a>
             <ul class="sidebar-nav">
-                <li><a href="index.php" class="active"><i class="fas fa-th-large"></i> <span>Browse Crafts</span></a></li>
-
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <?php if ($_SESSION['role'] == 'admin'): ?>
                         <li><a href="admin_dashboard.php"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
-                        <li><a href="admin_dashboard.php"><i class="fas fa-boxes"></i> <span>All Crafts</span></a></li>
                     <?php elseif ($_SESSION['role'] == 'craftsman'): ?>
                         <li><a href="craftsman_dashboard.php"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
+                        <li><a href="index.php" class="active"><i class="fas fa-search"></i> <span>Browse Others</span></a></li>
                         <li><a href="craftsman_dashboard.php"><i class="fas fa-box-open"></i> <span>My Inventory</span></a></li>
-                        <li><a href="add_craft.php"><i class="fas fa-plus-circle"></i> <span>Add Craft</span></a></li>
                     <?php elseif ($_SESSION['role'] == 'user'): ?>
-                        <li><a href="#"><i class="fas fa-heart"></i> <span>My Favorites</span></a></li>
+                        <li><a href="index.php" class="active"><i class="fas fa-th-large"></i> <span>Browse Crafts</span></a></li>
                     <?php endif; ?>
-                    <li><a href="#"><i class="fas fa-user-circle"></i> <span>My Profile</span></a></li>
                 <?php else: ?>
+                    <li><a href="index.php" class="active"><i class="fas fa-th-large"></i> <span>Browse Crafts</span></a></li>
                     <li><a href="login.php"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
                     <li><a href="register.php"><i class="fas fa-user-plus"></i> <span>Register</span></a></li>
                 <?php endif; ?>

@@ -35,8 +35,6 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                 <li><a href="craftsman_dashboard.php" class="active"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
                 <li><a href="index.php"><i class="fas fa-search"></i> <span>Browse Others</span></a></li>
                 <li><a href="craftsman_dashboard.php"><i class="fas fa-box-open"></i> <span>My Inventory</span></a></li>
-                <li><a href="add_craft.php"><i class="fas fa-plus-circle"></i> <span>Add New Craft</span></a></li>
-                <li><a href="#"><i class="fas fa-user-circle"></i> <span>Profile</span></a></li>
             </ul>
             <div class="sidebar-footer">
                 <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>

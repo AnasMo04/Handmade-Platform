@@ -35,10 +35,7 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                 <span>CraftsPlatform</span>
             </a>
             <ul class="sidebar-nav">
-                <li><a href="index.php"><i class="fas fa-th-large"></i> <span>Browse Crafts</span></a></li>
                 <li><a href="admin_dashboard.php" class="active"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
-                <li><a href="admin_dashboard.php"><i class="fas fa-boxes"></i> <span>All Crafts</span></a></li>
-                <li><a href="#"><i class="fas fa-cogs"></i> <span>Site Settings</span></a></li>
             </ul>
             <div class="sidebar-footer">
                 <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
