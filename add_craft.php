@@ -71,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <ul class="sidebar-nav">
                 <?php if ($_SESSION['role'] == 'admin'): ?>
                     <li><a href="admin_dashboard.php"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
-                    <li><a href="admin_dashboard.php#all-crafts"><i class="fas fa-boxes"></i> <span>Manage All Crafts</span></a></li>
                 <?php else: ?>
                     <li><a href="craftsman_dashboard.php"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
                     <li><a href="index.php"><i class="fas fa-search"></i> <span>Browse Others</span></a></li>

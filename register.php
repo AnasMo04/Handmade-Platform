@@ -69,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <select name="role" id="role" required>
                     <option value="user">Regular User</option>
                     <option value="craftsman">Craftsman</option>
-                    <option value="admin">System Administrator</option>
                 </select>
             </div>
             <button type="submit" class="btn">Register</button>

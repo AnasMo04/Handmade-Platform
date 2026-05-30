@@ -51,7 +51,6 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <?php if ($_SESSION['role'] == 'admin'): ?>
                         <li><a href="admin_dashboard.php"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
-                        <li><a href="admin_dashboard.php#all-crafts"><i class="fas fa-boxes"></i> <span>Manage All Crafts</span></a></li>
                     <?php elseif ($_SESSION['role'] == 'craftsman'): ?>
                         <li><a href="craftsman_dashboard.php"><i class="fas fa-chart-line"></i> <span>My Dashboard</span></a></li>
                         <li><a href="index.php" class="active"><i class="fas fa-search"></i> <span>Browse Others</span></a></li>

@@ -1,49 +1,13 @@
-[Wed May  6 18:34:54 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
-[Wed May  6 18:36:19 2026] [::1]:52016 Accepted
-[Wed May  6 18:36:19 2026] [::1]:52016 [200]: GET /index.php
-[Wed May  6 18:36:19 2026] [::1]:52016 Closing
-[Wed May  6 18:37:09 2026] [::1]:33300 Accepted
-[Wed May  6 18:37:09 2026] [::1]:33300 [200]: HEAD /index.php
-[Wed May  6 18:37:09 2026] [::1]:33300 Closing
-[Wed May  6 18:37:29 2026] [::1]:50284 Accepted
-[Wed May  6 18:37:29 2026] [::1]:50284 [200]: GET /index.php
-[Wed May  6 18:37:29 2026] [::1]:50284 Closing
-[Wed May  6 18:38:35 2026] [::1]:48240 Accepted
-[Wed May  6 18:38:35 2026] [::1]:48240 [200]: GET /index.php
-[Wed May  6 18:38:35 2026] [::1]:48240 Closing
-[Wed May  6 19:11:07 2026] [::1]:33476 Accepted
-[Wed May  6 19:11:08 2026] [::1]:33476 [200]: GET /index.php
-[Wed May  6 19:11:08 2026] [::1]:33476 Closing
-[Wed May  6 19:11:09 2026] [::1]:33486 Accepted
-[Wed May  6 19:11:09 2026] [::1]:33486 [200]: GET /login.php
-[Wed May  6 19:11:09 2026] [::1]:33486 Closing
-[Wed May  6 19:13:15 2026] [::1]:57884 Accepted
-[Wed May  6 19:13:15 2026] [::1]:57884 [200]: GET /index.php
-[Wed May  6 19:13:15 2026] [::1]:57884 Closing
-[Wed May  6 19:13:16 2026] [::1]:57900 Accepted
-[Wed May  6 19:13:16 2026] [::1]:57900 [200]: GET /login.php
-[Wed May  6 19:13:16 2026] [::1]:57900 Closing
-[Wed May  6 19:34:55 2026] [::1]:56712 Accepted
-[Wed May  6 19:34:55 2026] [::1]:56712 [200]: GET /index.php
-[Wed May  6 19:34:55 2026] [::1]:56712 Closing
-[Wed May  6 19:34:56 2026] [::1]:50496 Accepted
-[Wed May  6 19:34:56 2026] [::1]:50496 [200]: GET /login.php
-[Wed May  6 19:34:56 2026] [::1]:50496 Closing
-[Wed May  6 19:49:33 2026] [::1]:34954 Accepted
-[Wed May  6 19:49:33 2026] [::1]:34954 [200]: GET /index.php
-[Wed May  6 19:49:33 2026] [::1]:34954 Closing
-[Wed May  6 19:49:34 2026] [::1]:34962 Accepted
-[Wed May  6 19:49:34 2026] [::1]:34962 [200]: GET /login.php
-[Wed May  6 19:49:34 2026] [::1]:34962 Closing
-[Thu May  7 07:49:10 2026] [::1]:51210 Accepted
-[Thu May  7 07:49:10 2026] [::1]:51210 [200]: GET /index.php
-[Thu May  7 07:49:10 2026] [::1]:51210 Closing
-[Thu May  7 07:49:11 2026] [::1]:51214 Accepted
-[Thu May  7 07:49:11 2026] [::1]:51214 [200]: GET /login.php
-[Thu May  7 07:49:11 2026] [::1]:51214 Closing
-[Thu May  7 08:05:03 2026] [::1]:37326 Accepted
-[Thu May  7 08:05:03 2026] [::1]:37326 [200]: GET /index.php
-[Thu May  7 08:05:03 2026] [::1]:37326 Closing
-[Thu May  7 08:05:04 2026] [::1]:50832 Accepted
-[Thu May  7 08:05:04 2026] [::1]:50832 [200]: GET /login.php
-[Thu May  7 08:05:04 2026] [::1]:50832 Closing
+[Sat May 30 11:13:28 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Sat May 30 11:14:32 2026] [::1]:43614 Accepted
+[Sat May 30 11:14:32 2026] [::1]:43614 [200]: GET /register.php
+[Sat May 30 11:14:32 2026] [::1]:43614 Closing
+[Sat May 30 11:14:33 2026] [::1]:43616 Accepted
+[Sat May 30 11:14:33 2026] [::1]:43616 [200]: GET /login.php
+[Sat May 30 11:14:33 2026] [::1]:43616 Closing
+[Sat May 30 11:15:57 2026] [::1]:54652 Accepted
+[Sat May 30 11:15:57 2026] [::1]:54652 [200]: GET /register.php
+[Sat May 30 11:15:57 2026] [::1]:54652 Closing
+[Sat May 30 11:15:58 2026] [::1]:54662 Accepted
+[Sat May 30 11:15:58 2026] [::1]:54662 [200]: GET /login.php
+[Sat May 30 11:15:58 2026] [::1]:54662 Closing
