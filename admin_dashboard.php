@@ -12,9 +12,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 $users_stmt = $pdo->query("SELECT id, username, email, role, created_at FROM users ORDER BY created_at DESC");
 $users = $users_stmt->fetchAll();
 
-// Fetch all crafts
-$crafts_stmt = $pdo->query("SELECT crafts.*, users.username FROM crafts JOIN users ON crafts.user_id = users.id ORDER BY crafts.created_at DESC");
-$crafts = $crafts_stmt->fetchAll();
+// Analytics
+$total_users = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
+$total_craftsmen = $pdo->query("SELECT COUNT(*) FROM users WHERE role = 'craftsman'")->fetchColumn();
+$total_crafts = $pdo->query("SELECT COUNT(*) FROM crafts")->fetchColumn();
 
 $success = isset($_GET['success']) ? $_GET['success'] : '';
 ?>
@@ -37,7 +38,6 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             <ul class="sidebar-nav">
                 <li><a href="index.php"><i class="fas fa-th-large"></i> <span>Browse Crafts</span></a></li>
                 <li><a href="admin_dashboard.php" class="active"><i class="fas fa-users-cog"></i> <span>Manage Users</span></a></li>
-                <li><a href="#all-crafts"><i class="fas fa-boxes"></i> <span>Manage All Crafts</span></a></li>
             </ul>
             <div class="sidebar-footer">
                 <a href="logout.php" class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.3); color: #fff;">Logout</a>
@@ -48,6 +48,30 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             <div class="container">
         <h2 class="section-title">System Management</h2>
 
+        <div class="analytics-row">
+            <div class="analytics-card">
+                <div class="card-icon"><i class="fas fa-users"></i></div>
+                <div class="card-info">
+                    <h4>Total Users</h4>
+                    <p><?php echo $total_users; ?></p>
+                </div>
+            </div>
+            <div class="analytics-card">
+                <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                <div class="card-info">
+                    <h4>Total Craftsmen</h4>
+                    <p><?php echo $total_craftsmen; ?></p>
+                </div>
+            </div>
+            <div class="analytics-card">
+                <div class="card-icon"><i class="fas fa-box-open"></i></div>
+                <div class="card-info">
+                    <h4>Total Crafts</h4>
+                    <p><?php echo $total_crafts; ?></p>
+                </div>
+            </div>
+        </div>
+
         <?php if ($success == 'deleted'): ?>
             <div class="alert success-msg">Craft removed successfully!</div>
         <?php elseif ($success == 'user_deleted'): ?>
@@ -57,7 +81,10 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
         <?php endif; ?>
 
         <section style="margin-top: 2rem;">
-            <h3 style="margin-bottom: 1rem; color: var(--secondary-color);">User Accounts</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3 style="margin: 0; color: var(--secondary-color);">User Accounts</h3>
+                <button onclick="window.print()" class="btn btn-outline no-print"><i class="fas fa-print"></i> Print User Report</button>
+            </div>
             <div class="table-container">
                 <table>
                     <thead>
@@ -88,36 +115,6 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             </div>
         </section>
 
-        <section style="margin-top: 3rem;" id="all-crafts">
-            <h3 style="margin-bottom: 1rem; color: var(--secondary-color);">All Crafts</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Craftsman</th>
-                            <th>Price</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($crafts as $craft): ?>
-                            <tr>
-                                <td style="font-weight: 600;"><?php echo htmlspecialchars($craft['title']); ?></td>
-                                <td><?php echo htmlspecialchars($craft['username']); ?></td>
-                                <td style="color: var(--primary-color); font-weight: 700;">$<?php echo htmlspecialchars($craft['price']); ?></td>
-                                <td>
-                                    <div style="display: flex; gap: 0.5rem;">
-                                        <a href="edit_craft.php?id=<?php echo $craft['id']; ?>" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Edit</a>
-                                        <a href="delete_craft_admin.php?id=<?php echo $craft['id']; ?>" class="btn btn-danger delete-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Remove</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </section>
             </div>
         </main>
     </div>
