@@ -43,9 +43,10 @@ body {
 }
 
 .content-area {
-    flex-grow: 1;
+    flex: 1;
     padding: 2rem;
     transition: all 0.3s;
+    min-width: 0; /* Prevent overflow issues in flex */
 }
 
 .container {
@@ -64,6 +65,8 @@ body {
     position: sticky;
     top: 0;
     height: 100vh;
+    overflow-y: auto;
+    z-index: 1000;
     box-shadow: 4px 0 10px rgba(0,0,0,0.1);
     flex-shrink: 0;
 }
@@ -348,40 +351,56 @@ header ul li a:hover {
 }
 
 .analytics-card {
-    background: #ffffff;
+    background: linear-gradient(135deg, var(--primary-color), #283593);
     padding: 1.5rem;
     border-radius: var(--radius);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
     display: flex;
     align-items: center;
-    gap: 1.25rem;
-    border-left: 5px solid var(--primary-color);
+    gap: 1.5rem;
+    color: #ffffff;
+    transition: transform 0.3s;
+}
+
+.analytics-card:nth-child(2) {
+    background: linear-gradient(135deg, #37474f, #263238);
+}
+
+.analytics-card:nth-child(3) {
+    background: linear-gradient(135deg, #1a237e, #0d47a1);
+}
+
+.analytics-card:hover {
+    transform: translateY(-5px);
 }
 
 .analytics-card .card-icon {
-    width: 50px;
-    height: 50px;
-    background: rgba(26, 35, 126, 0.1);
-    color: var(--primary-color);
-    border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    backdrop-filter: blur(4px);
 }
 
 .analytics-card .card-info h4 {
     font-size: 0.85rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.8);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     margin-bottom: 0.25rem;
+    font-weight: 600;
 }
 
 .analytics-card .card-info p {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 800;
-    color: var(--primary-dark);
+    color: #ffffff;
+    line-height: 1;
 }
 
 /* Management Tables */
