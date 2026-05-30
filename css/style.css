@@ -342,6 +342,24 @@ header ul li a:hover {
     color: var(--accent-color);
 }
 
+.tag-badge {
+    background: rgba(26, 35, 126, 0.08);
+    color: var(--primary-color);
+    padding: 0.2rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid rgba(26, 35, 126, 0.1);
+}
+
+.tag-badge:hover {
+    background: var(--primary-color);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
 /* Analytics Cards */
 .analytics-row {
     display: grid;

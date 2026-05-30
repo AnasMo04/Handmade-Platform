@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = trim($_POST['title']);
     $description = trim($_POST['description']);
     $price = $_POST['price'];
+    $tags = trim($_POST['tags']);
 
     if (empty($title) || empty($description) || empty($price)) {
         $error = 'All fields are required.';
@@ -63,12 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (empty($error)) {
             if ($_SESSION['role'] === 'admin') {
-                $stmt = $pdo->prepare("UPDATE crafts SET title = ?, description = ?, price = ?, image_url = ? WHERE id = ?");
-                $success = $stmt->execute([$title, $description, $price, $image_url, $id]);
+                $stmt = $pdo->prepare("UPDATE crafts SET title = ?, description = ?, price = ?, tags = ?, image_url = ? WHERE id = ?");
+                $success = $stmt->execute([$title, $description, $price, $tags, $image_url, $id]);
                 $redirect = "admin_dashboard.php?success=updated";
             } else {
-                $stmt = $pdo->prepare("UPDATE crafts SET title = ?, description = ?, price = ?, image_url = ? WHERE id = ? AND user_id = ?");
-                $success = $stmt->execute([$title, $description, $price, $image_url, $id, $_SESSION['user_id']]);
+                $stmt = $pdo->prepare("UPDATE crafts SET title = ?, description = ?, price = ?, tags = ?, image_url = ? WHERE id = ? AND user_id = ?");
+                $success = $stmt->execute([$title, $description, $price, $tags, $image_url, $id, $_SESSION['user_id']]);
                 $redirect = "craftsman_dashboard.php?success=updated";
             }
 
@@ -130,6 +131,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="form-group">
                             <label for="description">Detailed Description</label>
                             <textarea name="description" id="description" rows="6" required><?php echo htmlspecialchars($craft['description']); ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">Tags (comma separated)</label>
+                            <input type="text" name="tags" id="tags" value="<?php echo htmlspecialchars($craft['tags'] ?? ''); ?>" placeholder="e.g. Pottery, Handmade, Clay">
                         </div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                             <div class="form-group">

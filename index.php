@@ -7,26 +7,32 @@
 session_start();
 require_once 'includes/db.php';
 
-// Handle search query if provided
+// Handle search and tag queries
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+$tag_filter = isset($_GET['tag']) ? trim($_GET['tag']) : '';
+
+$query = "SELECT crafts.*, users.username,
+          (SELECT AVG(rating) FROM ratings WHERE craft_id = crafts.id) as avg_rating,
+          (SELECT COUNT(*) FROM ratings WHERE craft_id = crafts.id) as rating_count
+          FROM crafts
+          JOIN users ON crafts.user_id = users.id";
+
+$params = [];
 
 if ($search) {
-    // Search for crafts matching the title or description
-    $stmt = $pdo->prepare("SELECT crafts.*, users.username, 
-                           (SELECT AVG(rating) FROM ratings WHERE craft_id = crafts.id) as avg_rating,
-                           (SELECT COUNT(*) FROM ratings WHERE craft_id = crafts.id) as rating_count
-                           FROM crafts 
-                           JOIN users ON crafts.user_id = users.id 
-                           WHERE title LIKE ? OR description LIKE ?");
-    $stmt->execute(["%$search%", "%$search%"]);
-} else {
-    $stmt = $pdo->query("SELECT crafts.*, users.username,
-                         (SELECT AVG(rating) FROM ratings WHERE craft_id = crafts.id) as avg_rating,
-                         (SELECT COUNT(*) FROM ratings WHERE craft_id = crafts.id) as rating_count
-                         FROM crafts 
-                         JOIN users ON crafts.user_id = users.id 
-                         ORDER BY created_at DESC");
+    $query .= " WHERE (title LIKE ? OR description LIKE ?)";
+    $params[] = "%$search%";
+    $params[] = "%$search%";
 }
+
+if ($tag_filter) {
+    $query .= ($search ? " AND" : " WHERE") . " tags LIKE ?";
+    $params[] = "%$tag_filter%";
+}
+
+$query .= " ORDER BY created_at DESC";
+$stmt = $pdo->prepare($query);
+$stmt->execute($params);
 $crafts = $stmt->fetchAll();
 
 $success = isset($_GET['success']) ? $_GET['success'] : '';
@@ -86,7 +92,15 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             <div class="alert success-msg">Thank you for your rating!</div>
         <?php endif; ?>
 
-        <h2 class="section-title">Available Crafts</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h2 class="section-title" style="margin-bottom: 0;">
+                <?php echo $tag_filter ? "Crafts tagged with '" . htmlspecialchars($tag_filter) . "'" : "Available Crafts"; ?>
+            </h2>
+            <?php if ($tag_filter || $search): ?>
+                <a href="index.php" class="btn btn-outline" style="padding: 0.5rem 1rem;"><i class="fas fa-times"></i> Clear Filter</a>
+            <?php endif; ?>
+        </div>
+
         <div class="gallery">
             <?php if (empty($crafts)): ?>
                 <p>No crafts found matching your search.</p>
@@ -102,6 +116,20 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                         </div>
                         <div class="craft-info">
                             <h3><?php echo htmlspecialchars($craft['title']); ?></h3>
+
+                            <?php if (!empty($craft['tags'])): ?>
+                                <div class="tag-container" style="margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                                    <?php
+                                    $tags = explode(',', $craft['tags']);
+                                    foreach ($tags as $tag):
+                                        $tag = trim($tag);
+                                        if (!$tag) continue;
+                                    ?>
+                                        <a href="index.php?tag=<?php echo urlencode($tag); ?>" class="tag-badge"><?php echo htmlspecialchars($tag); ?></a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+
                             <p class="craft-price">$<?php echo htmlspecialchars($craft['price']); ?></p>
 
                             <p class="craft-description"><?php echo htmlspecialchars($craft['description']); ?></p>

@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = trim($_POST['title']);
     $description = trim($_POST['description']);
     $price = $_POST['price'];
+    $tags = trim($_POST['tags']);
     $user_id = $_SESSION['user_id'];
 
     // Server-side validation
@@ -41,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (empty($error)) {
 
-            $stmt = $pdo->prepare("INSERT INTO crafts (user_id, title, description, price, image_url) VALUES (?, ?, ?, ?, ?)");
-            if ($stmt->execute([$user_id, $title, $description, $price, $image_url])) {
+            $stmt = $pdo->prepare("INSERT INTO crafts (user_id, title, description, price, tags, image_url) VALUES (?, ?, ?, ?, ?, ?)");
+            if ($stmt->execute([$user_id, $title, $description, $price, $tags, $image_url])) {
                 header("Location: craftsman_dashboard.php?success=added");
                 exit;
             } else {
@@ -99,6 +100,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="form-group">
                             <label for="description">Detailed Description</label>
                             <textarea name="description" id="description" rows="6" placeholder="Describe the materials, process, and uniqueness..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">Tags (comma separated)</label>
+                            <input type="text" name="tags" id="tags" placeholder="e.g. Pottery, Handmade, Clay">
                         </div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                             <div class="form-group">
