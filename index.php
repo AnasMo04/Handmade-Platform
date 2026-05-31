@@ -89,7 +89,7 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
         </section>
 
         <?php if ($success == 'rated'): ?>
-            <div class="alert success-msg">Thank you for your rating!</div>
+            <div class="alert alert-success">Thank you for your rating!</div>
         <?php endif; ?>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
@@ -177,5 +177,7 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             <p>&copy; <?php echo date("Y"); ?> Productive Families & Handmade Crafts Platform. All rights reserved.</p>
         </div>
     </footer>
+
+    <script src="js/validation.js"></script>
 </body>
 </html>

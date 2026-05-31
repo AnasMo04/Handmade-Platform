@@ -73,11 +73,11 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
         </div>
 
         <?php if ($success == 'deleted'): ?>
-            <div class="alert success-msg">Craft removed successfully!</div>
+            <div class="alert alert-success">Craft removed successfully!</div>
         <?php elseif ($success == 'user_deleted'): ?>
-            <div class="alert success-msg">User deleted successfully!</div>
+            <div class="alert alert-success">User deleted successfully!</div>
         <?php elseif ($success == 'updated'): ?>
-            <div class="alert success-msg">Craft updated successfully!</div>
+            <div class="alert alert-success">Craft updated successfully!</div>
         <?php endif; ?>
 
         <section style="margin-top: 2rem;">

@@ -2,14 +2,17 @@
 session_start();
 require_once 'includes/db.php';
 
-$error = '';
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = trim($_POST['username']);
-    $password = $_POST['password'];
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
 
     if (empty($username) || empty($password)) {
-        $error = 'Please fill in all fields.';
+        $_SESSION['error'] = 'Please fill in all fields.';
+        header("Location: login.php");
+        exit;
     } else {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->execute([$username]);
@@ -40,9 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="auth-container">
         <h2>Login</h2>
         <?php if ($error): ?>
-            <div class="alert error-msg"><?php echo $error; ?></div>
+            <div class="alert alert-danger"><?php echo $error; ?></div>
         <?php endif; ?>
-        <form action="login.php" method="POST" id="loginForm">
+        <form action="login.php" method="POST" id="loginForm" novalidate>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" required>
@@ -55,5 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
         <p>Don't have an account? <a href="register.php">Register here</a></p>
     </div>
+    <script src="js/validation.js"></script>
 </body>
 </html>

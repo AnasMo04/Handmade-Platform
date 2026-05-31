@@ -27,16 +27,19 @@ if (!$craft) {
     die("Craft not found or unauthorized access.");
 }
 
-$error = '';
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $price = $_POST['price'];
-    $tags = trim($_POST['tags']);
+    $title = trim($_POST['title'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $price = $_POST['price'] ?? '';
+    $tags = trim($_POST['tags'] ?? '');
 
     if (empty($title) || empty($description) || empty($price)) {
-        $error = 'All fields are required.';
+        $_SESSION['error'] = 'All fields are required.';
+        header("Location: edit_craft.php?id=$id");
+        exit;
     } else {
         // Handle optional image upload
         $image_url = $craft['image_url']; // Keep old image by default
@@ -123,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php endif; ?>
 
                 <div class="table-container" style="padding: 2.5rem;">
-                    <form action="edit_craft.php?id=<?php echo $id; ?>" method="POST" enctype="multipart/form-data" id="craftForm">
+                    <form action="edit_craft.php?id=<?php echo $id; ?>" method="POST" enctype="multipart/form-data" id="craftForm" novalidate>
                         <div class="form-group">
                             <label for="title">Craft Title</label>
                             <input type="text" name="title" id="title" value="<?php echo htmlspecialchars($craft['title']); ?>" required>
