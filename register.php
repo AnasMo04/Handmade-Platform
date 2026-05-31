@@ -2,20 +2,25 @@
 session_start();
 require_once 'includes/db.php';
 
-$error = '';
-$success = '';
+$error = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
-    $role = $_POST['role'];
+    $username = trim($_POST['username'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $role = $_POST['role'] ?? '';
 
     // Server-side validation
     if (empty($username) || empty($email) || empty($password) || empty($role)) {
-        $error = 'All fields are required.';
+        $_SESSION['error'] = 'All fields are required.';
+        header("Location: register.php");
+        exit;
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Invalid email format.';
+        $_SESSION['error'] = 'Invalid email format.';
+        header("Location: register.php");
+        exit;
     } else {
         // Check if username or email already exists
         $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
@@ -46,12 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="auth-container">
         <h2>Register</h2>
         <?php if ($error): ?>
-            <div class="alert error-msg"><?php echo $error; ?></div>
+            <div class="alert alert-danger"><?php echo $error; ?></div>
         <?php endif; ?>
         <?php if ($success): ?>
-            <div class="alert success-msg"><?php echo $success; ?></div>
+            <div class="alert alert-success"><?php echo $success; ?></div>
         <?php endif; ?>
-        <form action="register.php" method="POST" id="registerForm">
+        <form action="register.php" method="POST" id="registerForm" novalidate>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" required>

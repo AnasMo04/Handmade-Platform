@@ -7,20 +7,25 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'craftsman') {
     exit;
 }
 
-$error = '';
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $price = $_POST['price'];
-    $tags = trim($_POST['tags']);
+    $title = trim($_POST['title'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $price = $_POST['price'] ?? '';
+    $tags = trim($_POST['tags'] ?? '');
     $user_id = $_SESSION['user_id'];
 
     // Server-side validation
     if (empty($title) || empty($description) || empty($price)) {
-        $error = 'All fields are required.';
+        $_SESSION['error'] = 'All fields are required.';
+        header("Location: add_craft.php");
+        exit;
     } elseif (!is_numeric($price)) {
-        $error = 'Price must be a number.';
+        $_SESSION['error'] = 'Price must be a number.';
+        header("Location: add_craft.php");
+        exit;
     } else {
     // Handle optional image upload with improved checks
         $image_url = '';
@@ -92,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php endif; ?>
 
                 <div class="table-container" style="padding: 2.5rem;">
-                    <form action="add_craft.php" method="POST" enctype="multipart/form-data" id="craftForm">
+                    <form action="add_craft.php" method="POST" enctype="multipart/form-data" id="craftForm" novalidate>
                         <div class="form-group">
                             <label for="title">Craft Title</label>
                             <input type="text" name="title" id="title" placeholder="e.g. Hand-Woven Silk Scarf" required>

@@ -514,6 +514,20 @@ table tr:hover {
     background: #fff;
 }
 
+.form-group input.is-invalid,
+.form-group select.is-invalid,
+.form-group textarea.is-invalid {
+    border-color: var(--error-color);
+}
+
+.error-text {
+    color: var(--error-color);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 0.4rem;
+    display: block;
+}
+
 /* Footer */
 footer {
     background: #ffffff;

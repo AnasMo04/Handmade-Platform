@@ -49,11 +49,11 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
         </div>
 
         <?php if ($success == 'added'): ?>
-            <div class="alert success-msg">Craft added successfully!</div>
+            <div class="alert alert-success">Craft added successfully!</div>
         <?php elseif ($success == 'updated'): ?>
-            <div class="alert success-msg">Craft updated successfully!</div>
+            <div class="alert alert-success">Craft updated successfully!</div>
         <?php elseif ($success == 'deleted'): ?>
-            <div class="alert success-msg">Craft deleted successfully!</div>
+            <div class="alert alert-success">Craft deleted successfully!</div>
         <?php endif; ?>
 
         <div class="table-container">
